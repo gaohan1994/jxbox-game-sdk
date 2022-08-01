@@ -1,0 +1,3 @@
+class Fusion {}
+
+export { Fusion };
