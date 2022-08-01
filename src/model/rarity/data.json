@@ -1,0 +1,38 @@
+{
+  "normal": {
+    "level": "normal",
+    "label": "普通",
+    "value": 0,
+    "description": ""
+  },
+  "special": {
+    "level": "special",
+    "label": "特殊",
+    "value": 1,
+    "description": ""
+  },
+  "rare": {
+    "level": "rare",
+    "label": "稀有",
+    "value": 2,
+    "description": ""
+  },
+  "epic": {
+    "level": "epic",
+    "label": "史诗",
+    "value": 3,
+    "description": ""
+  },
+  "legendary": {
+    "level": "legendary",
+    "label": "传说",
+    "value": 4,
+    "description": ""
+  },
+  "immortal": {
+    "level": "immortal",
+    "label": "不朽",
+    "value": 5,
+    "description": ""
+  }
+}
