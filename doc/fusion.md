@@ -50,18 +50,18 @@
 
 ## 卡片 Card
 
-| Attribute   | Type          | Description                                                                     |
-| ----------- | ------------- | ------------------------------------------------------------------------------- |
-| id          | number        | 卡片 id                                                                         |
-| accountId   | number        | 所属用户 id                                                                     |
-| level       | number        | 卡片等级                                                                        |
-| rarity      | Rarity        | 普通-白 特殊-蓝 稀有-紫 史诗-橙 传说-黄 神-黑 奇遇-粉                           |
-| name        | string        | 卡片名称                                                                        |
-| faction     | Faction       | 卡片阵营                                                                        |
-| description | string        | 卡片简介                                                                        |
-| medals      | Array<Medal>  | 卡片的勋章                                                                      |
-| createTime  | string        | 创建时间                                                                        |
-| fusionPath  | Array<number> | 合成路径 由合成的卡片 id 组成，每次合成成功将合成卡牌的 id 加入到 fusionPath 中 |
+| Attribute   | Type               | Description                                                                     |
+| ----------- | ------------------ | ------------------------------------------------------------------------------- | ------------ |
+| id          | number             | 卡片 id                                                                         |
+| level       | number             | 卡片等级                                                                        |
+| rarity      | Rarity             | 普通-白 特殊-蓝 稀有-紫 史诗-橙 传说-黄 神-黑 奇遇-粉                           |
+| name        | string             | 卡片名称                                                                        |
+| faction     | Faction            | 卡片阵营                                                                        |
+| description | string             | 卡片简介                                                                        |
+| medals      | Array<Medal>       | 卡片的勋章                                                                      |
+| account     | Pick<Account, "id" | "displayName">                                                                  | 所属用户信息 |
+| createTime  | string             | 创建时间                                                                        |
+| fusionPath  | Array<number>      | 合成路径 由合成的卡片 id 组成，每次合成成功将合成卡牌的 id 加入到 fusionPath 中 |
 
 ## 卡片稀有度 Rarity
 
@@ -73,7 +73,6 @@
 | name        | string | 稀有度 oneOf [normal, special, rare, epic, legendary, immortal, 奇遇] |
 | label       | string | 稀有度 oneOf [普通, 特殊, 稀有, 史诗, 传说, 神话, 奇遇]               |
 | Value       | number | 稀有度的值 oneOf [1, 2, 3, 4, 5, 6, 7]                                |
-| icon        | string | 稀有度图标                                                            |
 | description | string | 稀有度简介和稀有度描述                                                |
 
 ## 卡片勋章 Medal
