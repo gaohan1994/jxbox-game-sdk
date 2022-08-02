@@ -43,7 +43,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "smar-util": "^1.2.1"
+    "smar-util": "^1.2.4"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
