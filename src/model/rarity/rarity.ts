@@ -24,11 +24,12 @@ const pickNextRarityLevel = (rarityLevel: RarityLevel): RarityLevel => {
 
   const findNextLevelIndex = (currentLevelIndex) => currentLevelIndex + 1;
 
-  const getNextRarityLevelCompose = pipe(
+  const getNextRarityLevelIndexPipe = pipe(
     findCurrentLevelIndex,
     findNextLevelIndex
   );
-  return getNextRarityLevelCompose(getRarityLevelList());
+  const rarityLevelList = getRarityLevelList();
+  return rarityLevelList[getNextRarityLevelIndexPipe(rarityLevelList)];
 };
 
 const isTopLevel = (rarityLevel: RarityLevel) => {
