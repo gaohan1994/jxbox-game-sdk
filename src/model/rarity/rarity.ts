@@ -1,3 +1,4 @@
+import { pipe } from 'smar-util';
 import data from './data.json';
 import { Rarity, RarityLevel } from './types';
 
@@ -6,23 +7,28 @@ const topLevel = RarityLevel.immortal;
 const createRarity = (rarityLevel = RarityLevel.normal): Rarity =>
   Object.freeze(pickRarityData(rarityLevel) as Rarity);
 
-const pickRarityData = (rarityLevel: RarityLevel) => data[rarityLevel];
-
 const createNextLevelRarity = (rarityLevel: RarityLevel) => {
   const nextRarityLevel = pickNextRarityLevel(rarityLevel);
   return createRarity(nextRarityLevel);
 };
+
+const pickRarityData = (rarityLevel: RarityLevel) => data[rarityLevel];
 
 const pickNextRarityLevel = (rarityLevel: RarityLevel): RarityLevel => {
   if (isTopLevel(rarityLevel)) {
     throw new Error('Rarity already has been top level');
   }
 
-  const rarityLevels = getRarityLevelList();
-  const currentLevelIndex = rarityLevels.findIndex(
-    (level) => level === rarityLevel
+  const findCurrentLevelIndex = (levelList) =>
+    levelList.findIndex((level) => level === rarityLevel);
+
+  const findNextLevelIndex = (currentLevelIndex) => currentLevelIndex + 1;
+
+  const getNextRarityLevelCompose = pipe(
+    findCurrentLevelIndex,
+    findNextLevelIndex
   );
-  return rarityLevels[currentLevelIndex + 1];
+  return getNextRarityLevelCompose(getRarityLevelList());
 };
 
 const isTopLevel = (rarityLevel: RarityLevel) => {
