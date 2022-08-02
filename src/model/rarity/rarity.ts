@@ -3,11 +3,10 @@ import { Rarity, RarityLevel } from './types';
 
 const topLevel = RarityLevel.immortal;
 
-const pickRarityData = (rarityLevel: RarityLevel) => data[rarityLevel];
+const createRarity = (rarityLevel = RarityLevel.normal): Rarity =>
+  Object.freeze(pickRarityData(rarityLevel) as Rarity);
 
-const createRarity = (rarityLevel: RarityLevel): Rarity => {
-  return Object.freeze({ ...(pickRarityData(rarityLevel) as Rarity) });
-};
+const pickRarityData = (rarityLevel: RarityLevel) => data[rarityLevel];
 
 const createNextLevelRarity = (rarityLevel: RarityLevel) => {
   const nextRarityLevel = pickNextRarityLevel(rarityLevel);
@@ -16,12 +15,20 @@ const createNextLevelRarity = (rarityLevel: RarityLevel) => {
 
 const pickNextRarityLevel = (rarityLevel: RarityLevel): RarityLevel => {
   if (isTopLevel(rarityLevel)) {
-    return topLevel;
+    throw new Error('Rarity already has been top level');
   }
+
+  const rarityLevels = getRarityLevelList();
+  const currentLevelIndex = rarityLevels.findIndex(
+    (level) => level === rarityLevel
+  );
+  return rarityLevels[currentLevelIndex + 1];
 };
 
 const isTopLevel = (rarityLevel: RarityLevel) => {
   return rarityLevel === topLevel;
 };
 
-export { createRarity };
+const getRarityLevelList = () => Object.keys(data) as Array<RarityLevel>;
+
+export { createRarity, createNextLevelRarity };
