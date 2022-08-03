@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "江湖",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "name": "少林",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "name": "纯阳",
+      "description": ""
+    }
+  ]
+}
