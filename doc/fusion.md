@@ -102,6 +102,12 @@
 | createTime  | string | 用户创建时间 |
 | avatar      | string | 用户头像     |
 
+## 代码层级
+
+- json 数据相当于数据库所有的数据都存放在 json 文件中 各个 json 之间通过 key 关联（关系型数据库）
+- sdk 部分相当于后端，处理数据，关联数据，并且暴露 api 给前端调用
+- 前端部分，获取数据并展示数据
+
 ## 伪代码
 
 card/card.ts
