@@ -7,10 +7,25 @@ enum RarityLevel {
   immortal = 'immortal',
 }
 interface Rarity {
+  id: number;
   level: RarityLevel;
-  value: number;
   label: string;
   description: string;
 }
 
-export { Rarity, RarityLevel };
+type ICreateNextLevelRarityPayload = RarityLevel | number;
+
+interface ICreateNextLevelRarity {
+  (params: ICreateNextLevelRarityPayload): Rarity;
+}
+
+const checkShouldCreateNextLevelRarityById = (
+  params: ICreateNextLevelRarityPayload
+): params is number => typeof params === 'number';
+
+export {
+  Rarity,
+  RarityLevel,
+  ICreateNextLevelRarity,
+  checkShouldCreateNextLevelRarityById,
+};

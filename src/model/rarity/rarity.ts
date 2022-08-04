@@ -1,41 +1,58 @@
 import { pipe } from 'smar-util';
+import {
+  checkShouldCreateNextLevelRarityById,
+  ICreateNextLevelRarity,
+  Rarity,
+  RarityLevel,
+} from './types';
 import data from './data.json';
-import { Rarity, RarityLevel } from './types';
 
+const rarityList = data.list;
+const rarityLevels = data.levels;
 const topLevel = RarityLevel.immortal;
 
-const createRarity = (rarityLevel = RarityLevel.normal): Rarity =>
-  Object.freeze(pickRarityData(rarityLevel) as Rarity);
+const getRarity = (rarityId: number): Rarity =>
+  Object.freeze(findRarityById(rarityId) as Rarity);
 
-const createNextLevelRarity = (rarityLevel: RarityLevel) => {
-  const nextRarityLevel = pickNextRarityLevel(rarityLevel);
-  return createRarity(nextRarityLevel);
-};
+const findRarityById = (rarityId: number) =>
+  rarityList.find((rarity) => rarity.id === rarityId);
 
-const pickRarityData = (rarityLevel: RarityLevel) => data[rarityLevel];
+const getRarityByLevel = (rarityLevel: RarityLevel) =>
+  Object.freeze(findRarityByLevel(rarityLevel) as Rarity);
 
-const pickNextRarityLevel = (rarityLevel: RarityLevel): RarityLevel => {
-  if (isTopLevel(rarityLevel)) {
+const findRarityByLevel = (rarityLevel: RarityLevel) =>
+  rarityList.find((rarity) => rarity.level === rarityLevel);
+
+const getNextLevelRarity: ICreateNextLevelRarity = (params) => {
+  let currentLevel: RarityLevel;
+  if (checkShouldCreateNextLevelRarityById(params)) {
+    currentLevel = getRarity(params).level;
+  } else {
+    currentLevel = params;
+  }
+  if (isTopLevel(currentLevel)) {
     throw new Error('Rarity already has been top level');
   }
+  const nextRarityLevel = pickNextRarityLevel(currentLevel);
+  return getRarityByLevel(nextRarityLevel);
+};
 
-  const findCurrentLevelIndex = (levelList) =>
-    levelList.findIndex((level) => level === rarityLevel);
+const isTopLevel = (rarityLevel: RarityLevel) => rarityLevel === topLevel;
+
+const pickNextRarityLevel = (rarityLevel: RarityLevel): RarityLevel => {
+  const findCurrentLevelIndex = () =>
+    rarityLevels.findIndex((level) => level === rarityLevel);
 
   const findNextLevelIndex = (currentLevelIndex) => currentLevelIndex + 1;
 
-  const getNextRarityLevelIndexPipe = pipe(
+  const pickNextLevel = (nextLevelIndex) => rarityLevels[nextLevelIndex];
+
+  const getNextRarityLevelPipe = pipe(
     findCurrentLevelIndex,
-    findNextLevelIndex
+    findNextLevelIndex,
+    pickNextLevel
   );
-  const rarityLevelList = getRarityLevelList();
-  return rarityLevelList[getNextRarityLevelIndexPipe(rarityLevelList)];
+  return getNextRarityLevelPipe({}) as RarityLevel;
 };
 
-const isTopLevel = (rarityLevel: RarityLevel) => {
-  return rarityLevel === topLevel;
-};
-
-const getRarityLevelList = () => Object.keys(data) as Array<RarityLevel>;
-
-export { createRarity, createNextLevelRarity };
+export { getRarity, getRarityByLevel, getNextLevelRarity };
