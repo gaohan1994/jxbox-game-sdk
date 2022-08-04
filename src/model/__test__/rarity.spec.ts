@@ -1,45 +1,59 @@
 import test from 'ava';
-import { createNextLevelRarity, createRarity, RarityLevel } from '../index';
+import {
+  getNextLevelRarity,
+  getRarity,
+  getRarityByLevel,
+  RarityLevel,
+} from '../index';
 
-test('test crate rarity without params', (it) => {
-  const normalRarity = createRarity();
+test('test crate rarity by id', (it) => {
+  const normalRarity = getRarity(0);
+  it.is(normalRarity.id, 0);
   it.is(normalRarity.level, RarityLevel.normal);
   it.is(normalRarity.description, '');
   it.is(normalRarity.label, '普通');
-  it.is(normalRarity.value, 0);
 });
 
-test.beforeEach('创建普通稀有度', (it) => {
-  const normalRarity = createRarity(RarityLevel.normal);
+test.beforeEach('create rarities before each cases start', (it) => {
+  const normalRarity = getRarityByLevel(RarityLevel.normal);
   (it.context as any).normalRarity = normalRarity;
 
-  const imortalRarity = createRarity(RarityLevel.immortal);
+  const imortalRarity = getRarityByLevel(RarityLevel.immortal);
   (it.context as any).imortalRarity = imortalRarity;
 });
 
 test('test create normal rarity', (it) => {
   const { normalRarity } = it.context as any;
 
+  it.is(normalRarity.id, 0);
   it.is(normalRarity.level, RarityLevel.normal);
   it.is(normalRarity.description, '');
   it.is(normalRarity.label, '普通');
-  it.is(normalRarity.value, 0);
 });
 
-test('test create normal next level rarity', (it) => {
+test('test create normal next level rarity by level', (it) => {
   const { normalRarity } = it.context as any;
-  const nextLevelRarity = createNextLevelRarity(normalRarity.level);
+  const nextLevelRarity = getNextLevelRarity(normalRarity.level);
 
+  it.is(nextLevelRarity.id, 1);
   it.is(nextLevelRarity.level, RarityLevel.special);
   it.is(nextLevelRarity.description, '');
   it.is(nextLevelRarity.label, '特殊');
-  it.is(nextLevelRarity.value, 1);
+});
+
+test('test create normal next level rarity by id', (it) => {
+  const nextLevelRarity = getNextLevelRarity(1);
+
+  it.is(nextLevelRarity.id, 2);
+  it.is(nextLevelRarity.level, RarityLevel.rare);
+  it.is(nextLevelRarity.description, '');
+  it.is(nextLevelRarity.label, '稀有');
 });
 
 test('test already is top level rarity and create next level rarity should throw an error', (it) => {
   const { imortalRarity } = it.context as any;
 
-  it.throws(() => createNextLevelRarity(imortalRarity.level), {
+  it.throws(() => getNextLevelRarity(imortalRarity.level), {
     message: 'Rarity already has been top level',
   });
 });
