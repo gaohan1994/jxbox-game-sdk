@@ -4635,10 +4635,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-smar-util@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/smar-util/-/smar-util-1.2.5.tgz#77d32973f7438d108c3e31547172d628af1875f6"
-  integrity sha512-QHabHFKLcmN6hloMUKH6OgZT8uBDd69n4MthuvVFXE98rv7Qpvw80RU34aLWJ+UhzkZ2irQ5GRoURyQXamhk9g==
+smar-util@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/smar-util/-/smar-util-1.2.6.tgz#c497a0a775e441756e94bd9e1f439a4994be4bcd"
+  integrity sha512-xLhLjw+yTHp5MX6B629VHTlXD5MF+KDpu6mB2Blq1r7GzZRkUnYZgq/Guxc+e4iEiWORFknLF+OYffUTYl/giw==
 
 source-map-support@^0.5.17, source-map-support@^0.5.19:
   version "0.5.21"
